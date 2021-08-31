@@ -25,6 +25,8 @@ const utils = require('../utils')
 
 // Your code:
 // monkey patch
+const originalGetWinner = utils.getWinner
+utils.getWinner = (p1, p2) => p1
 
 const winner = thumbWar('Kent C. Dodds', 'Ken Wheeler')
 assert.strictEqual(winner, 'Kent C. Dodds')
@@ -32,6 +34,7 @@ assert.strictEqual(winner, 'Kent C. Dodds')
 // Your code:
 // cleanup
 
+utils.getWinner = originalGetWinner
 /**
  * Checkout master branch to see the answer.
  */

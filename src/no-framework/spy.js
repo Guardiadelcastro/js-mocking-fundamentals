@@ -13,10 +13,15 @@ function fn(impl = () => {}) {
     mockFn.mock.calls.push(args)
     return impl(...args)
   }
-  mockFn.mock = {calls: []}
+  mockFn.mock = { calls: [] }
+  mockFn.mockImplementation = (newImpl) => (impl = newImpl)
   return mockFn
 }
-
+function spyOn(obj, key) {
+  const originalValue = obj[key]
+  obj[key] = fn()
+  obj[key].mockRestore = () => (obj[key] = originalValue)
+}
 spyOn(utils, 'getWinner')
 utils.getWinner.mockImplementation((p1, p2) => p1)
 
